@@ -1,6 +1,5 @@
 const assetRouter = require('express').Router()
 const Asset = require('../models/asset')
-const logger = require('../utils/logger')
 
 assetRouter.get('/', (req, res, next) => {
   Asset.find({})
@@ -22,7 +21,6 @@ assetRouter.get('/:id', (req, res, next) => {
 
 assetRouter.post('/', (req, res, next) => {
   const { symbol, shares } = req.body
-  logger.info(symbol, shares)
   const asset = new Asset({ symbol, shares })
   asset
     .save()
@@ -35,6 +33,14 @@ assetRouter.post('/', (req, res, next) => {
 assetRouter.delete('/:id', (req, res, next) => {
   Asset.findByIdAndRemove(req.params.id)
     .then(() => res.status(204).end())
+    .catch(error => next(error))
+})
+
+assetRouter.put('/:id', (req, res, next) => {
+  const { symbol, shares } = req.body
+  const asset = { symbol, shares }
+  Asset.findByIdAndUpdate(req.params.id, asset, { new: true })
+    .then(updatedAsset => res.json(updatedAsset))
     .catch(error => next(error))
 })
 
