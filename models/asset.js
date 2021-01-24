@@ -8,7 +8,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFind
   .catch(error => console.log('error connecting to MongoDB: ', error))
 
 const assetSchema = new mongoose.Schema({
-  symbol: String,
+  symbol: { type: String, required: true },
   shares: Number
 })
 assetSchema.set('toJSON', {
