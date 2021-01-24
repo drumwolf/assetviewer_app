@@ -19,7 +19,7 @@ assetRouter.get('/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
-assetRouter.post('/', (req, res) => {
+assetRouter.post('/', (req, res, next) => {
   const { symbol, shares } = req.body
   console.log(symbol, shares)
   const asset = new Asset({ symbol, shares })
@@ -28,6 +28,7 @@ assetRouter.post('/', (req, res) => {
     .then(savedAsset => {
       res.json(savedAsset)
     })
+    .catch(error => next(error))
 })
 
 module.exports = assetRouter
