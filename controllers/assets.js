@@ -32,4 +32,10 @@ assetRouter.post('/', (req, res, next) => {
     .catch(error => next(error))
 })
 
+assetRouter.delete('/:id', (req, res, next) => {
+  Asset.findByIdAndRemove(req.params.id)
+    .then(() => res.status(204).end())
+    .catch(error => next(error))
+})
+
 module.exports = assetRouter
