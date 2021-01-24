@@ -1,3 +1,4 @@
+require('dotenv').config()
 const http = require('http')
 const express = require('express')
 const app = express()
@@ -11,7 +12,7 @@ const assetSchema = new mongoose.Schema({
 
 const Asset = mongoose.model('Asset', assetSchema)
 
-const mongoUrl = 'mongodb+srv://johnnyleegrio:HMG9YBDfqn7edL3e@cluster0.pa9pe.mongodb.net/asset-app?retryWrites=true&w=majority'
+const mongoUrl = process.env.MONGO_URL
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
 
 app.use(cors())
@@ -32,5 +33,5 @@ app.post('/api/assets', (req, res) => {
     })
 })
 
-const PORT = 3001
+const PORT = process.env.PORT
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
