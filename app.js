@@ -15,6 +15,7 @@ mongoose.connect(config.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: 
 app.use(cors())
 app.use(express.static('build'))
 app.use(express.json())
+app.use(middleware.requestLogger)
 app.use('/api/assets', assetRouter)
 
 app.use(middleware.unknownEndpoint)
