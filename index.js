@@ -2,17 +2,8 @@ const http = require('http')
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const mongoose = require('mongoose')
 const config = require('./utils/config')
-
-const assetSchema = new mongoose.Schema({
-  symbol: String,
-  shares: Number
-})
-
-const Asset = mongoose.model('Asset', assetSchema)
-
-mongoose.connect(config.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
+const Asset = require('./models/asset')
 
 app.use(cors())
 app.use(express.json())
